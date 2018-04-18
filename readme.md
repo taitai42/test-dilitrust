@@ -1,58 +1,34 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+## Test Dilitrust
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+I made a small website using laravel, because that's the quickest tool to use and I was late on the realisation of the test.
 
-## About Laravel
+The website allow users to upload their file and chose if they want it public or private :
+![private](https://raw.githubusercontent.com/taitai42/test-dilitrust/master/screens/upload.PNG)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+if they are set to private, the user can chose to give access to the file to another user of the website as you can see in the following screenshot : 
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+![private](https://raw.githubusercontent.com/taitai42/test-dilitrust/master/screens/private.PNG)
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+if the file is set as public, any user can see it from the homepage, and the owner can see who viewed the file:
 
-## Learning Laravel
+![private](https://raw.githubusercontent.com/taitai42/test-dilitrust/master/screens/public.PNG)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+## Deployment
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+I used docker to deploy the app so you can easily test it by cloning the repo, add the .env file I will provide by mail that contains the necessary keys and using the command 
+`make`
+this will download the dependances of the project, as well as creating and mounting docker images
+once the database image is up and running, you can perform the following command :
+`make migrations`
+this will create the necessary tables and seed inside the database.
 
-## Laravel Sponsors
+once this is up you can navigate to [http://localhost:8181](http://localhost:8181) to test it.
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
+## Architecture
+The website is using laravel framework, and mysql, via eloquent, which means we can easily change the database manager into postgres for exemple (that's what i used for development). 
+Files uploaded are stored in Amazon S3, encrypted, which allow us to be sure they are available at any time and secure, they are displayed to the user by a temporary url (10 minutes), to make sure it's not predictable by a potential hacker 
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Pulse Storm](http://www.pulsestorm.net/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
+## Code test
 
-## Contributing
+unit test are located inside the tests/unit folder, you can run them using `phpunit` 
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

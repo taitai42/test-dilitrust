@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,12 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Event::listen('Illuminate\Database\Events\QueryExecuted', function ($query) {
-            // filter oauth ones
-            if (!str_contains($query->sql, 'oauth')) {
-                Log::debug($query->sql . ' - ' . serialize($query->bindings));
-            }
-        });
+        Schema::defaultStringLength(191);
     }
 
     /**
